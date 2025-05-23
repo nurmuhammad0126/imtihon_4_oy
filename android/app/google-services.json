@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "625404634105",
+    "project_id": "imtihon-4-6bd7a",
+    "storage_bucket": "imtihon-4-6bd7a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625404634105:android:edce192734bf445ae85328",
+        "android_client_info": {
+          "package_name": "com.example.exam_4"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfk5z6KFOtURUw1YDxJ1lAqkyqdV0riMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
