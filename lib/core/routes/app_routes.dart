@@ -1,72 +1,64 @@
-import 'package:exam_4/feature/auth/presentation/pages/forget_pasword_screen.dart';
-import 'package:exam_4/feature/auth/presentation/pages/login_screen.dart';
-import 'package:exam_4/feature/auth/presentation/pages/sign_up_screen.dart';
-import 'package:exam_4/feature/auth/presentation/pages/verification_screen.dart';
-import 'package:exam_4/feature/onboarding/presentation/pages/on_boarding_screen.dart';
-import 'package:exam_4/feature/onboarding/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../feature/auth/presentation/pages/forget_pasword_screen.dart';
+import '../../feature/auth/presentation/pages/login_screen.dart';
+import '../../feature/auth/presentation/pages/sign_up_screen.dart';
+import '../../feature/auth/presentation/pages/verification_screen.dart';
+import '../../feature/onboarding/presentation/pages/on_boarding_screen.dart';
+import '../../feature/onboarding/presentation/pages/splash_screen.dart';
 import 'app_names.dart';
 
 class AppRoutes {
   static final GoRouter router = GoRouter(
-    initialLocation: AppNames.login,
+    initialLocation: AppNames.splash,
     routes: [
-      GoRoute(
-        path: AppNames.spalsh,
-        builder: (context, state) => const SplashScreen(),
+      _animatedRoute(AppNames.splash, const SplashScreen()),
+      _animatedRoute(AppNames.onBoading, const OnBoardingScreen()),
+      _animatedRoute(AppNames.login, const LoginScreen()),
+      _animatedRoute(AppNames.forgetPasword, const ForgetPaswordScreen()),
+      _animatedRoute(AppNames.verification, const VerificationScreen()),
+      _animatedRoute(AppNames.signUp, const SignUpScreen()),
+      _animatedRoute(AppNames.access, const PlaceholderScreen(title: 'Access')),
+      _animatedRoute(AppNames.home, const PlaceholderScreen(title: 'Home')),
+      _animatedRoute(AppNames.cart, const PlaceholderScreen(title: 'Cart')),
+      _animatedRoute(
+        AppNames.editCart,
+        const PlaceholderScreen(title: 'Edit Cart'),
       ),
-      GoRoute(
-        path: AppNames.onBoading,
-        builder: (context, state) => OnBoardingScreen(),
+      _animatedRoute(
+        AppNames.payment,
+        const PlaceholderScreen(title: 'Payment'),
       ),
-      GoRoute(
-        path: AppNames.login,
-        builder: (context, state) => const LoginScreen(),
-      ),
-      GoRoute(
-        path: AppNames.forgetPasword,
-        builder: (context, state) => const ForgetPaswordScreen(),
-      ),
-      GoRoute(
-        path: AppNames.verification,
-        builder: (context, state) => const VerificationScreen(),
-      ),
-      GoRoute(
-        path: AppNames.signUp,
-        builder: (context, state) => const SignUpScreen(),
-      ),
-      GoRoute(
-        path: AppNames.access,
-        builder: (context, state) => const PlaceholderScreen(title: 'Access'),
-      ),
-      GoRoute(
-        path: AppNames.home,
-        builder: (context, state) => const PlaceholderScreen(title: 'Home'),
-      ),
-      GoRoute(
-        path: AppNames.cart,
-        builder: (context, state) => const PlaceholderScreen(title: 'Cart'),
-      ),
-      GoRoute(
-        path: AppNames.editCart,
-        builder:
-            (context, state) => const PlaceholderScreen(title: 'Edit Cart'),
-      ),
-      GoRoute(
-        path: AppNames.payment,
-        builder: (context, state) => const PlaceholderScreen(title: 'Payment'),
-      ),
-      GoRoute(
-        path: AppNames.map,
-        builder: (context, state) => const PlaceholderScreen(title: 'Map'),
-      ),
-      GoRoute(
-        path: AppNames.chat,
-        builder: (context, state) => const PlaceholderScreen(title: 'Chat'),
-      ),
+      _animatedRoute(AppNames.map, const PlaceholderScreen(title: 'Map')),
+      _animatedRoute(AppNames.chat, const PlaceholderScreen(title: 'Chat')),
     ],
   );
+
+  static GoRoute _animatedRoute(String path, Widget screen) {
+    return GoRoute(
+      path: path,
+      pageBuilder:
+          (context, state) => CustomTransitionPage(
+            key: state.pageKey,
+            child: screen,
+            transitionsBuilder: (
+              context,
+              animation,
+              secondaryAnimation,
+              child,
+            ) {
+              const begin = Offset(1, 0);
+              const end = Offset.zero;
+              final tween = Tween(
+                begin: begin,
+                end: end,
+              ).chain(CurveTween(curve: Curves.easeInOut));
+              final offsetAnimation = animation.drive(tween);
+              return SlideTransition(position: offsetAnimation, child: child);
+            },
+          ),
+    );
+  }
 }
 
 class PlaceholderScreen extends StatelessWidget {

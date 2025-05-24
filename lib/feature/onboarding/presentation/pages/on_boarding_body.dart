@@ -89,23 +89,22 @@ class _OnBoardingBodyState extends State<OnBoardingBody> {
                             width: double.infinity,
                             height: 340.h,
                           ),
-                        ).paddingOnly(
-                          top: 114.h,
-                          left: 68.w,
-                          right: 67.w,
-                          bottom: 63.h,
-                        ),
-                        Text(
-                          pages[index]['title']!,
-                          style: context.styles.s22w800,
-                        ),
-                        Text(
-                          pages[index]['desc']!,
-                          textAlign: TextAlign.center,
-                          style: context.styles.s16w400.copyWith(
-                            color: context.colors.gray,
+                        ).paddingOnly(top: 114.h, left: 68.w, right: 67.w),
+                        Expanded(
+                          child: Text(
+                            pages[index]['title']!,
+                            style: context.styles.s22w800,
                           ),
-                        ).paddingSymmetric(horizontal: 26.w, vertical: 18.h),
+                        ).paddingSymmetric(horizontal: 25.o, vertical: 18.o),
+                        Expanded(
+                          child: Text(
+                            pages[index]['desc']!,
+                            textAlign: TextAlign.center,
+                            style: context.styles.s16w400.copyWith(
+                              color: context.colors.gray,
+                            ),
+                          ).paddingSymmetric(horizontal: 26.w),
+                        ),
                       ],
                     ),
               ),
@@ -121,7 +120,8 @@ class _OnBoardingBodyState extends State<OnBoardingBody> {
             dotColor: context.colors.lightOrange,
             activeDotColor: context.colors.orange,
           ),
-        ).paddingOnly(top: 32.h, bottom: 70.h),
+        ).paddingOnly(top: 32.h),
+        40.height,
         BlocBuilder<OnBoardingBloc, OnBoardingState>(
           buildWhen:
               (previous, current) => previous.isLastPage != current.isLastPage,
@@ -148,13 +148,7 @@ class _OnBoardingBodyState extends State<OnBoardingBody> {
           builder:
               (context, state) => TextButton(
                 onPressed:
-                    state.isLastPage
-                        ? null
-                        : () => _pageController.animateToPage(
-                          0,
-                          duration: const Duration(milliseconds: 800),
-                          curve: Curves.decelerate,
-                        ),
+                    state.isLastPage ? null : () => context.go(AppNames.login),
                 child: Text(
                   state.isLastPage ? "" : "Skip",
                   style: context.styles.s16w400.copyWith(

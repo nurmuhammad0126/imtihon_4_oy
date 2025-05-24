@@ -12,4 +12,6 @@ class AppColors {
 
   final Color white = Colors.white;
   final Color black = Colors.black;
+  final Color transparent = Colors.transparent;
+
 }

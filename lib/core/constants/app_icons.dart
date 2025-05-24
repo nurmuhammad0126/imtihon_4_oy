@@ -1,5 +1,5 @@
 class AppIcons {
-  static final basePath = 'assets/images/svgs/';
+  static final basePath = 'assets/svgs/';
 
   final apple = '${basePath}apple_icon.svg';
   final dropDown = '${basePath}drop_down_icon.svg';

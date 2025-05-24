@@ -1,5 +1,5 @@
 class AppNames {
-  static final spalsh = "/splash";
+  static final splash = "/splash";
   static final onBoading = "/onbourding";
   static final login = "/login";
   static final forgetPasword = "/forgetpassword";

@@ -1,15 +1,17 @@
+import 'package:exam_4/core/extension/context_extensions.dart';
 import 'package:flutter/material.dart';
 
-class ForgetPaswordScreen extends StatefulWidget {
+import '../widgets/forget_password_screen_body.dart';
+
+class ForgetPaswordScreen extends StatelessWidget {
   const ForgetPaswordScreen({super.key});
 
   @override
-  State<ForgetPaswordScreen> createState() => _ForgetPaswordScreenState();
-}
-
-class _ForgetPaswordScreenState extends State<ForgetPaswordScreen> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("Forget PAswwrod screen")));
+    return Scaffold(
+      backgroundColor: context.colors.dark,
+
+      body: ForgetPasswordScreenBody(),
+    );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:exam_4/core/extension/size_extensions.dart';
 import 'package:flutter/material.dart';
 
 class WRoundedContainer extends StatelessWidget {
@@ -7,7 +6,7 @@ class WRoundedContainer extends StatelessWidget {
   final Color color;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
-  final double borderRadius;
+  final BorderRadiusGeometry? borderRadius;
   final Clip clip;
 
   const WRoundedContainer({
@@ -19,7 +18,7 @@ class WRoundedContainer extends StatelessWidget {
     this.margin,
     this.height,
     this.clip = Clip.none,
-    this.borderRadius = 12,
+    this.borderRadius,
   });
 
   @override
@@ -31,7 +30,7 @@ class WRoundedContainer extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(borderRadius.o),
+        borderRadius: borderRadius??  BorderRadius.circular(12),
       ),
       child: child,
     );

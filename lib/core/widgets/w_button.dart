@@ -86,7 +86,7 @@ class WButton extends StatelessWidget {
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
                                 color: textColor ?? Colors.white,
-                                fontFamily: "MontserretMediumItalic",
+                                fontFamily: "Sen",
                               ),
                         ),
                   ),
