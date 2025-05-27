@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/routes/app_names.dart';
 import '../blocs/auth_bloc/auth_bloc.dart';
 
 class ForgetPasswordScreenBody extends StatefulWidget {
@@ -23,9 +24,55 @@ class ForgetPasswordScreenBody extends StatefulWidget {
 
 class _LoginScreenBodyState extends State<ForgetPasswordScreenBody> {
   final TextEditingController _email = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  void showSuccessDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          title: const Text(
+            "Tabriklaymiz!",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w900),
+          ),
+          content: const Text(
+            "Tabriklaymiz\nPasswordni tiklash havolasi emailingizga yuborildi 😍.",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.orange,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                context.go(AppNames.login);
+              },
+              child: const Text(
+                "OK",
+                style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final authbloc = context.read<AuthBloc>();
+
     return Stack(
       children: [
         Positioned(
@@ -82,34 +129,41 @@ class _LoginScreenBodyState extends State<ForgetPasswordScreenBody> {
                     style: context.styles.s12w500,
                   ).paddingOnly(left: 24.0, top: 24.o, bottom: 8.o),
 
-                  WTextField(
-                    validator: Validators.validateEmail,
-                    controller: _email,
-                    contentPadding: EdgeInsets.only(
-                      left: 19.o,
-                      top: 22.o,
-                      bottom: 23.o,
-                    ),
-                    hasBorderColor: false,
-                    border: Border.all(color: context.colors.lightBlue),
-                    borderRadius: 10.o,
-                    borderColor: context.colors.lightBlue,
-                    fillColor: context.colors.lightBlue,
-                    hintText: "example@gmail.com",
-                    hintTextStyle: context.styles.s14w400.copyWith(
-                      color: context.colors.blueGray,
-                    ),
-                  ).paddingSymmetric(horizontal: 24.o),
-
+                  Form(
+                    key: _formKey,
+                    child: WTextField(
+                      validator: Validators.validateEmail,
+                      controller: _email,
+                      contentPadding: EdgeInsets.only(
+                        left: 19.o,
+                        top: 22.o,
+                        bottom: 23.o,
+                      ),
+                      hasBorderColor: false,
+                      border: Border.all(color: context.colors.lightBlue),
+                      borderRadius: 10.o,
+                      borderColor: context.colors.lightBlue,
+                      fillColor: context.colors.lightBlue,
+                      hintText: "example@gmail.com",
+                      hintTextStyle: context.styles.s14w400.copyWith(
+                        color: context.colors.blueGray,
+                      ),
+                    ).paddingSymmetric(horizontal: 24.o),
+                  ),
                   WButton(
                     color: context.colors.orange,
                     borderRadius: 12.o,
-                    onTap: () {},
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        authbloc.add(AuthForgetEvent(email: _email.text));
+                      }
+                    },
                     padding: EdgeInsets.symmetric(vertical: 17),
                     child: Center(
                       child: BlocConsumer<AuthBloc, AuthState>(
                         builder: (context, state) {
-                          if (state.loginBotton == AuthStatus.loading) {
+                          if (state.forgetPasswordBotton ==
+                              AuthStatus.loading) {
                             return CupertinoActivityIndicator(
                               color: context.colors.white,
                             );
@@ -122,20 +176,23 @@ class _LoginScreenBodyState extends State<ForgetPasswordScreenBody> {
                           );
                         },
                         listener: (BuildContext context, AuthState state) {
-                          if (state.loginBotton == AuthStatus.error) {
+                          if (state.forgetPasswordBotton == AuthStatus.error) {
                             ScaffoldMessenger.of(context)
                               ..clearSnackBars()
                               ..showSnackBar(
                                 SnackBar(
                                   backgroundColor: Colors.red,
                                   content: Text(
-                                    "EMAIL yoki PASSWORD Xoto!!",
+                                    "EMAIL Xato !!",
                                     style: context.styles.s18w800.copyWith(
                                       color: context.colors.white,
                                     ),
                                   ),
                                 ),
                               );
+                          } else if (state.forgetPasswordBotton ==
+                              AuthStatus.succes) {
+                            showSuccessDialog(context);
                           }
                         },
                       ),

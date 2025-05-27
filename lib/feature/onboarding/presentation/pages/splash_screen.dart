@@ -2,6 +2,7 @@ import 'package:exam_4/core/extension/context_extensions.dart';
 import 'package:exam_4/core/extension/size_extensions.dart';
 import 'package:exam_4/core/extension/widget_extensions.dart';
 import 'package:exam_4/core/routes/app_names.dart';
+import 'package:exam_4/core/service/user_local_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,9 +17,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2)).then((_) {
+    Future.delayed(Duration(seconds: 2)).then((_) async {
+      final res = await UserLocalService().hasUser();
       if (mounted) {
-        context.go(AppNames.onBoading);
+        res ? context.go(AppNames.mainScreen) : context.go(AppNames.onBoading);
       }
     });
   }

@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exam_4/core/routes/app_routes.dart';
 import 'package:exam_4/feature/auth/data/datasource/auth_remote_datasource.dart';
 import 'package:exam_4/feature/auth/data/repository/auth_repository.dart';
 import 'package:exam_4/feature/auth/presentation/blocs/auth_bloc/auth_bloc.dart';
+import 'package:exam_4/feature/home/data/datasource/product_remote_datasource.dart';
+import 'package:exam_4/feature/home/data/repository/product_repository.dart';
+import 'package:exam_4/feature/home/presentation/blocs/bloc/product_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,18 +19,19 @@ void main() async {
 }
 
 class MainApp extends StatelessWidget {
+  static final _fireStore = FirebaseFirestore.instance;
+  static final authRemote = AuthRemoteDatasource();
+  static final authRepo = AuthRepository(authRemote: authRemote);
+  static final productRemoteImpl = ProductRemoteDataSourceImpl(_fireStore);
+  static final productRepoImpl = ProductRepositoryImpl(productRemoteImpl);
   const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create:
-              (_) => AuthBloc(
-                authRepo: AuthRepository(authRemote: AuthRemoteDatasource()),
-              ),
-        ),
+        BlocProvider(create: (_) => AuthBloc(authRepo: authRepo)),
+        BlocProvider(create: (context) => ProductBloc(productRepoImpl)),
       ],
       child: MaterialApp.router(routerConfig: AppRoutes.router),
     );

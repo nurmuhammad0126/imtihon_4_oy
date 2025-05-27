@@ -1,3 +1,9 @@
+import 'package:exam_4/feature/auth/presentation/pages/access_location.dart';
+import 'package:exam_4/feature/cart/presentation/pages/cart_screen.dart';
+import 'package:exam_4/feature/cart/presentation/pages/congratulations_screen.dart';
+import 'package:exam_4/feature/home/presentation/pages/home_product_detail_screen.dart';
+import 'package:exam_4/feature/home/presentation/pages/home_screen.dart';
+import 'package:exam_4/feature/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../feature/auth/presentation/pages/forget_pasword_screen.dart';
@@ -13,14 +19,20 @@ class AppRoutes {
     initialLocation: AppNames.splash,
     routes: [
       _animatedRoute(AppNames.splash, const SplashScreen()),
+      _animatedRoute(AppNames.congratulations, const CongratulationsScreen()),
+
       _animatedRoute(AppNames.onBoading, const OnBoardingScreen()),
       _animatedRoute(AppNames.login, const LoginScreen()),
       _animatedRoute(AppNames.forgetPasword, const ForgetPaswordScreen()),
       _animatedRoute(AppNames.verification, const VerificationScreen()),
       _animatedRoute(AppNames.signUp, const SignUpScreen()),
       _animatedRoute(AppNames.access, const PlaceholderScreen(title: 'Access')),
-      _animatedRoute(AppNames.home, const PlaceholderScreen(title: 'Home')),
-      _animatedRoute(AppNames.cart, const PlaceholderScreen(title: 'Cart')),
+      _animatedRoute(AppNames.home, const HomeScreen()),
+      _animatedRoute(AppNames.homeDetail, const HomeProductDetailScreen()),
+      _animatedRoute(AppNames.accesLocation, const AccessLocationScreen()),
+      _animatedRoute(AppNames.mainScreen, const MainScreen()),
+
+      _animatedRoute(AppNames.cart, CartScreen()),
       _animatedRoute(
         AppNames.editCart,
         const PlaceholderScreen(title: 'Edit Cart'),

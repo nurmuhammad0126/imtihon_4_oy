@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class WRoundedContainer extends StatelessWidget {
+  final Border? border;
   final double? height;
   final Widget child;
   final Color color;
@@ -14,6 +15,7 @@ class WRoundedContainer extends StatelessWidget {
 
     required this.color,
     required this.child,
+    this.border,
     this.padding,
     this.margin,
     this.height,
@@ -29,6 +31,7 @@ class WRoundedContainer extends StatelessWidget {
       padding: padding,
       height: height,
       decoration: BoxDecoration(
+        border: border,
         color: color,
         borderRadius: borderRadius??  BorderRadius.circular(12),
       ),

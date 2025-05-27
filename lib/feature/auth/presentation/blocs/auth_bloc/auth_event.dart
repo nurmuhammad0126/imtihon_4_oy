@@ -21,9 +21,11 @@ class AuthRegisterEvent extends AuthEvent {
   });
 }
 
-class AuthForgetEvent extends AuthEvent {}
+class AuthForgetEvent extends AuthEvent {
+  final String email;
 
-class AuthVerifiactionEvent extends AuthEvent {}
+  AuthForgetEvent({required this.email});
+}
 
 class AuthUpdateEvent extends AuthEvent {
   final AuthState updateAuth;

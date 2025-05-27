@@ -90,21 +90,17 @@ class _OnBoardingBodyState extends State<OnBoardingBody> {
                             height: 340.h,
                           ),
                         ).paddingOnly(top: 114.h, left: 68.w, right: 67.w),
-                        Expanded(
-                          child: Text(
-                            pages[index]['title']!,
-                            style: context.styles.s22w800,
-                          ),
+                        Text(
+                          pages[index]['title']!,
+                          style: context.styles.s22w800,
                         ).paddingSymmetric(horizontal: 25.o, vertical: 18.o),
-                        Expanded(
-                          child: Text(
-                            pages[index]['desc']!,
-                            textAlign: TextAlign.center,
-                            style: context.styles.s16w400.copyWith(
-                              color: context.colors.gray,
-                            ),
-                          ).paddingSymmetric(horizontal: 26.w),
-                        ),
+                        Text(
+                          pages[index]['desc']!,
+                          textAlign: TextAlign.center,
+                          style: context.styles.s16w400.copyWith(
+                            color: context.colors.gray,
+                          ),
+                        ).paddingSymmetric(horizontal: 26.w),
                       ],
                     ),
               ),
