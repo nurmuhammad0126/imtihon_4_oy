@@ -18,7 +18,7 @@ class HomeProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push(AppNames.homeDetail,extra: product);
+        context.push(AppNames.homeDetail, extra: product);
       },
       child: SizedBox(
         child: Stack(
@@ -67,7 +67,7 @@ class HomeProductWidget extends StatelessWidget {
                           padding: EdgeInsets.zero,
                           height: 40.w,
                           onTap: () {
-
+                            context.go(AppNames.homeDetail, extra: product);
                           },
                           width: 40.w,
                           child: Center(

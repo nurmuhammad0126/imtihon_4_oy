@@ -2,6 +2,7 @@ import 'package:exam_4/core/extension/context_extensions.dart';
 import 'package:exam_4/feature/cart/presentation/pages/cart_screen.dart';
 import 'package:exam_4/feature/home/presentation/pages/home_screen.dart';
 import 'package:exam_4/feature/order/presentation/pages/order_scren.dart';
+import 'package:exam_4/feature/profile/presentation/page/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
     HomeScreen(),
     CartScreen(),
     OrderScren(),
-    Center(child: Text("PROFile")),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {

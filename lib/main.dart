@@ -3,6 +3,9 @@ import 'package:exam_4/core/routes/app_routes.dart';
 import 'package:exam_4/feature/auth/data/datasource/auth_remote_datasource.dart';
 import 'package:exam_4/feature/auth/data/repository/auth_repository.dart';
 import 'package:exam_4/feature/auth/presentation/blocs/auth_bloc/auth_bloc.dart';
+import 'package:exam_4/feature/cart/data/datasource/cart_remote_datasource.dart';
+import 'package:exam_4/feature/cart/data/repository/cart_repository.dart';
+import 'package:exam_4/feature/cart/presentation/blocs/bloc/cart_bloc.dart';
 import 'package:exam_4/feature/home/data/datasource/product_remote_datasource.dart';
 import 'package:exam_4/feature/home/data/repository/product_repository.dart';
 import 'package:exam_4/feature/home/presentation/blocs/bloc/product_bloc.dart';
@@ -32,6 +35,16 @@ class MainApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => AuthBloc(authRepo: authRepo)),
         BlocProvider(create: (context) => ProductBloc(productRepoImpl)),
+        BlocProvider(
+          create:
+              (context) => CartBloc(
+                cartRepositoryImpl: CartRepositoryImpl(
+                  remoteDatasource: CartRemoteDatasource(
+                    FirebaseFirestore.instance,
+                  ),
+                ),
+              ),
+        ),
       ],
       child: MaterialApp.router(routerConfig: AppRoutes.router),
     );

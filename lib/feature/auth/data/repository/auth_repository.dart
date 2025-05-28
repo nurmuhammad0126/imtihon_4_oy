@@ -7,7 +7,7 @@ class AuthRepository {
 
   AuthRepository({required this.authRemote});
 
-  Future<bool> loginWithEmail({
+  Future<User?> loginWithEmail({
     required String email,
     required String password,
   }) async {
@@ -16,10 +16,14 @@ class AuthRepository {
         email: email,
         password: password,
       );
-      return res != null;
+      if (res == null) {
+        return null;
+      }
+
+      return res.user;
     } catch (e) {
       print("ERROR: BOLDI REPO LOGIN: $e");
-      return false;
+      return null;
     }
   }
 
@@ -29,7 +33,7 @@ class AuthRepository {
     required String password,
   }) async {
     try {
-      final user = UserModel(name: name, email: email, carts: {}, orders: {});
+      final user = UserModel(name: name, email: email);
       final credential = await authRemote.registerWithEmail(
         email: email,
         password: password,

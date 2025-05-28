@@ -330,19 +330,19 @@ class _MyWidgetState extends State<SingUpScreenBody> {
                         },
                         listener: (BuildContext context, AuthState state) {
                           if (state.signUpBotton == AuthStatus.error) {
-                            ScaffoldMessenger.of(context)
-                              ..clearSnackBars()
-                              ..showSnackBar(
-                                SnackBar(
-                                  backgroundColor: Colors.red,
-                                  content: Text(
-                                    "EMAIL yoki PASSWORD Xoto!!",
-                                    style: context.styles.s18w800.copyWith(
-                                      color: context.colors.white,
-                                    ),
-                                  ),
-                                ),
-                              );
+                            //   ScaffoldMessenger.of(context)
+                            //     ..clearSnackBars()
+                            //     ..showSnackBar(
+                            //       SnackBar(
+                            //         backgroundColor: Colors.red,
+                            //         content: Text(
+                            //           "EMAIL yoki PASSWORD Xoto!!",
+                            //           style: context.styles.s18w800.copyWith(
+                            //             color: context.colors.white,
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     );
                           }
                           if (state.signUpBotton == AuthStatus.succes) {
                             showSuccessDialog(context);

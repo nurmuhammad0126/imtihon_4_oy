@@ -49,12 +49,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
 
     if (credential != null) {
-      final user = UserModel(
-        name: event.name,
-        email: event.email,
-        carts: {},
-        orders: {},
-      );
+      final user = UserModel(name: event.name, email: event.email);
       _saveUser(user);
       emit(state.copyWith(signUpBotton: AuthStatus.succes));
     } else {
@@ -75,12 +70,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       email: event.email,
       password: event.password,
     );
-    if (res) {
+    if (res != null) {
       final user = UserModel(
         name: "",
+        id: res.uid,
         email: event.email,
-        carts: {},
-        orders: {},
       );
       _saveUser(user);
       emit(state.copyWith(loginBotton: AuthStatus.succes));

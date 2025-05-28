@@ -5,6 +5,12 @@ class OrderScren extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("Oredr")));
+    return Scaffold(
+      body: Center(
+        child: Text(
+          "Orders"
+        )
+      ),
+    );
   }
 }

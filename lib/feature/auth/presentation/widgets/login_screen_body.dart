@@ -44,7 +44,6 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
     return Stack(
       children: [
         Column(
-          
           children: [
             32.height,
             Text(
@@ -238,7 +237,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                               );
                           }
                           if (state.loginBotton == AuthStatus.succes) {
-                            context.go(AppNames.home);
+                            context.go(AppNames.mainScreen);
                           }
                         },
                       ),

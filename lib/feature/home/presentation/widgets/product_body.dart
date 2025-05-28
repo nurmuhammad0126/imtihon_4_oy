@@ -5,8 +5,11 @@ import 'package:exam_4/core/widgets/w_cached_network_image.dart';
 import 'package:exam_4/feature/home/data/model/product_model.dart';
 import 'package:exam_4/feature/home/presentation/widgets/info_row_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/widgets/w_rounded_container.dart';
+import '../blocs/cubit/product_detail_cubit.dart';
+import '../blocs/cubit/product_detail_state.dart';
 
 class ProductBody extends StatelessWidget {
   final ProductModel product;
@@ -14,6 +17,8 @@ class ProductBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<ProductDetailCubit>().init(product);
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,32 +27,12 @@ class ProductBody extends StatelessWidget {
           WRoundedContainer(
             borderRadius: BorderRadius.circular(32.0),
             color: context.colors.blueGray,
-
-            child: SizedBox(
+            clip: Clip.hardEdge,
+            child: WCachedImage(
               width: double.infinity,
               height: 200.h,
-              child: Stack(
-                children: [
-                  WCachedImage(
-                    imageUrl: product.image,
-                    width: double.infinity,
-                    height: double.infinity,
-                    borderRadius: BorderRadius.circular(32.o),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: IconButton.filled(
-                      style: IconButton.styleFrom(
-                        backgroundColor: context.colors.white.withOpacity(0.15),
-                      ),
-                      onPressed: () {
-                        
-                      },
-                      icon: Icon(Icons.favorite_border),
-                    ),
-                  ).paddingAll(15.o),
-                ],
-              ),
+              imageUrl: product.image,
+              borderRadius: BorderRadius.circular(32.o),
             ),
           ).paddingSymmetric(horizontal: 24.w),
           24.height,
@@ -80,35 +65,52 @@ class ProductBody extends StatelessWidget {
 
           InfoRowWidget(),
           25.height,
-          Row(
-            spacing: 10.w,
-            children: [
-              Text("Size:", style: context.styles.s14w400),
-              6.width,
-              CircleAvatar(
-                radius: 24.o,
-                backgroundColor: context.colors.lightBlue,
-                child: Text("10”", style: context.styles.s16w400),
-              ),
-              CircleAvatar(
-                radius: 24.o,
+          BlocBuilder<ProductDetailCubit, ProductDetailState>(
+            builder: (context, state) {
+              return Row(
+                spacing: 10.w,
+                children: [
+                  Text("Size:", style: context.styles.s14w400),
+                  6.width,
+                  for (int i = 0; i < state.sizes!.length; i++)
+                    i == state.currentIndex
+                        ? InkWell(
+                          borderRadius: BorderRadius.circular(50),
+                          onTap: () {
+                            context.read<ProductDetailCubit>().changeIndex(i);
+                          },
+                          child: CircleAvatar(
+                            radius: 24.o,
 
-                backgroundColor: context.colors.primaryOrange,
-                child: Text(
-                  "14”",
-                  style: context.styles.s16w400.copyWith(
-                    color: context.colors.white,
-                  ),
-                ),
-              ),
-              CircleAvatar(
-                radius: 24.o,
+                            backgroundColor: context.colors.primaryOrange,
+                            child: Text(
+                              state.sizes![i],
+                              style: context.styles.s16w400.copyWith(
+                                color: context.colors.white,
+                              ),
+                            ),
+                          ),
+                        )
+                        : InkWell(
+                          borderRadius: BorderRadius.circular(50),
 
-                backgroundColor: context.colors.lightBlue,
-                child: Text("16”", style: context.styles.s16w400),
-              ),
-            ],
+                          onTap: () {
+                            context.read<ProductDetailCubit>().changeIndex(i);
+                          },
+                          child: CircleAvatar(
+                            radius: 24.o,
+                            backgroundColor: context.colors.lightBlue,
+                            child: Text(
+                              state.sizes![i],
+                              style: context.styles.s16w400,
+                            ),
+                          ),
+                        ),
+                ],
+              );
+            },
           ),
+
           Text(
             "INGREDENTS",
             style: context.styles.s14w400,

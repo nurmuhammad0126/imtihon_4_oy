@@ -5,12 +5,21 @@ import '../model/product_model.dart';
 abstract class _ProductRemoteDataSource {
   Future<List<ProductModel>> getProductsByCategory(String categoryId);
   Future<void> addProduct(ProductModel p);
+  Future<void> updateProduct(ProductModel product);
 }
 
 class ProductRemoteDataSourceImpl implements _ProductRemoteDataSource {
   final FirebaseFirestore firestore;
 
   ProductRemoteDataSourceImpl(this.firestore);
+
+  @override
+  Future<void> updateProduct(ProductModel product) async {
+    await firestore
+        .collection('products')
+        .doc(product.id)
+        .update(product.toJson());
+  }
 
   @override
   Future<List<ProductModel>> getProductsByCategory(String categoryId) async {

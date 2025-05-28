@@ -85,7 +85,25 @@ class AuthRemoteDatasource {
   Future<void> addUser(UserModel user) async {
     try {
       await _firestore.collection('users').doc(user.id).set(user.toJson());
-      debugPrint("Foydalanuvchi Firestore'ga qo'shildi.");
+
+      await _firestore
+          .collection('users')
+          .doc(user.id)
+          .collection("carts")
+          .doc("_init")
+          
+          .set({"init": true});
+
+      await _firestore
+          .collection('users')
+          .doc(user.id)
+          .collection("orders")
+          .doc("_init")
+          .set({"init": true});
+
+      debugPrint(
+        "Foydalanuvchi va bo'sh kolleksiyalar Firestore'ga qo'shildi.",
+      );
     } catch (e) {
       debugPrint("Xatolik (addUser): $e");
     }

@@ -11,4 +11,9 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<List<ProductModel>> getProducts(String categoryId) {
     return remoteDataSourceImple.getProductsByCategory(categoryId);
   }
+
+  @override
+  Future<void> updateProduct(ProductModel product) async {
+    await remoteDataSourceImple.updateProduct(product);
+  }
 }

@@ -7,3 +7,9 @@ class LoadProducts extends ProductEvent {
 
   LoadProducts(this.categoryId);
 }
+
+class UpdateProductEvent extends ProductEvent{
+  final ProductModel productModel;
+
+  UpdateProductEvent({required this.productModel});
+}
