@@ -1,4 +1,6 @@
 import 'package:exam_4/core/extension/context_extensions.dart';
+import 'package:exam_4/core/service/user_local_service.dart';
+import 'package:exam_4/feature/cart/presentation/blocs/bloc/cart_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -150,7 +152,17 @@ class ProductBottomBar extends StatelessWidget {
                 borderRadius: 12,
                 padding: EdgeInsets.symmetric(vertical: 20.w),
                 onTap: () async {
+                  print("===========================================");
+                  print(id);
+                  print("===========================================");
+
                   context.read<ProductDetailCubit>().addToCart(id);
+                  final userId = await UserLocalService().getUserId();
+                  if (userId != null && context.mounted) {
+                    context.read<CartBloc>().add(
+                      InitProductEvent(userId: userId),
+                    );
+                  }
                 },
                 child:
                     state.bottonAddCart

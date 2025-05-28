@@ -1,7 +1,7 @@
 import 'package:exam_4/core/extension/context_extensions.dart';
 import 'package:exam_4/feature/cart/presentation/pages/cart_screen.dart';
 import 'package:exam_4/feature/home/presentation/pages/home_screen.dart';
-import 'package:exam_4/feature/order/presentation/pages/order_scren.dart';
+import 'package:exam_4/feature/order/presentation/pages/order_screen.dart';
 import 'package:exam_4/feature/profile/presentation/page/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _screens = [
     HomeScreen(),
     CartScreen(),
-    OrderScren(),
+    OrderScreen(),
     ProfileScreen(),
   ];
 

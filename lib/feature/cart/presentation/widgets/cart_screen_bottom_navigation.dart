@@ -1,14 +1,18 @@
 import 'package:exam_4/core/extension/context_extensions.dart';
 import 'package:exam_4/core/extension/size_extensions.dart';
+import 'package:exam_4/core/routes/app_names.dart';
+import 'package:exam_4/core/service/user_local_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/widgets/w_button.dart';
 import '../../../../core/widgets/w_textfield.dart';
+import '../blocs/bloc/cart_bloc.dart';
+
 class CartScreenBottomNavigation extends StatelessWidget {
-  const CartScreenBottomNavigation({
-    super.key,
-    required this.controller,
-  });
+  const CartScreenBottomNavigation({super.key, required this.controller});
 
   final TextEditingController controller;
 
@@ -39,7 +43,7 @@ class CartScreenBottomNavigation extends StatelessWidget {
                   color: context.colors.gray,
                 ),
               ),
-    
+
               Text(
                 "EDIT ITEMS",
                 style: context.styles.s14w400.copyWith(
@@ -78,7 +82,14 @@ class CartScreenBottomNavigation extends StatelessWidget {
                 ),
               ),
               12.width,
-              Text("\$96", style: context.styles.s30w400),
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  return Text(
+                    "\$${state.total}",
+                    style: context.styles.s30w400,
+                  );
+                },
+              ),
               Spacer(),
               Text(
                 "Breakdown ",
@@ -91,16 +102,35 @@ class CartScreenBottomNavigation extends StatelessWidget {
             ],
           ),
           32.height,
+
           WButton(
             color: context.colors.primaryOrange,
             borderRadius: 12,
             padding: EdgeInsets.symmetric(vertical: 20.w),
-            onTap: () {},
-            child: Text(
-              "PLACE ORDER ",
-              style: context.styles.s16w800.copyWith(
-                color: context.colors.white,
-              ),
+            onTap: () async {
+              final userId = await UserLocalService().getUserId();
+              if (userId != null && context.mounted) {
+                context.read<CartBloc>().add(UpdateCart(userId: userId));
+              }
+            },
+            child: BlocConsumer<CartBloc, CartState>(
+              builder: (context, state) {
+                if (state.cartStatus == CartStatus.load) {
+                  return Center(child: CupertinoActivityIndicator());
+                }
+                return Text(
+                  "PLACE ORDER ",
+                  style: context.styles.s16w800.copyWith(
+                    color: context.colors.white,
+                  ),
+                );
+              },
+              listener: (BuildContext context, CartState state) async {
+                if (state.cartStatus == CartStatus.succes) {
+                  context.go(AppNames.congratulations);
+                    
+                }
+              },
             ),
           ),
         ],

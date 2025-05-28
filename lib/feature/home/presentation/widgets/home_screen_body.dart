@@ -1,7 +1,6 @@
 import 'package:exam_4/core/extension/context_extensions.dart';
 import 'package:exam_4/core/extension/size_extensions.dart';
 import 'package:exam_4/core/extension/widget_extensions.dart';
-import 'package:exam_4/feature/home/data/model/product_model.dart';
 import 'package:exam_4/feature/home/presentation/widgets/home_product_widget.dart';
 import 'package:exam_4/feature/home/presentation/widgets/info_row_widget.dart';
 import 'package:flutter/material.dart';
@@ -45,16 +44,11 @@ class HomeScreenBody extends StatelessWidget {
                   ),
                   itemBuilder: (context, index) {
                     final pro = products[index];
+                    print(pro.id);
+                    print("=====================================");
+
                     return HomeProductWidget(
-                      product: ProductModel(
-                        id: pro.id,
-                        name: pro.name,
-                        image: pro.image,
-                        price: pro.price,
-                        rating: pro.rating,
-                        title: pro.title,
-                        categoryId: pro.categoryId,
-                      ),
+                      product: pro
                     );
                   },
                 );

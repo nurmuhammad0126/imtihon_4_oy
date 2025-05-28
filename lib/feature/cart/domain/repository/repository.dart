@@ -9,4 +9,6 @@ abstract class CartRepository {
     required CartModel cartItem,
   });
   Future<List<CartModel>> fetchCartItems(String userId);
+
+  Future<void> addOrder({required List<CartModel> carts,required userId});
 }

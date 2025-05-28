@@ -9,10 +9,12 @@ import 'package:exam_4/feature/cart/presentation/blocs/bloc/cart_bloc.dart';
 import 'package:exam_4/feature/home/data/datasource/product_remote_datasource.dart';
 import 'package:exam_4/feature/home/data/repository/product_repository.dart';
 import 'package:exam_4/feature/home/presentation/blocs/bloc/product_bloc.dart';
+import 'package:exam_4/feature/order/data/datasource/order_remote_datasource.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'feature/order/presentation/bloc/order_bloc.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -34,14 +36,22 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => AuthBloc(authRepo: authRepo)),
-        BlocProvider(create: (context) => ProductBloc(productRepoImpl)),
+        BlocProvider(create: (_) => ProductBloc(productRepoImpl)),
         BlocProvider(
           create:
-              (context) => CartBloc(
+              (_) => CartBloc(
                 cartRepositoryImpl: CartRepositoryImpl(
                   remoteDatasource: CartRemoteDatasource(
                     FirebaseFirestore.instance,
                   ),
+                ),
+              ),
+        ),
+        BlocProvider(
+          create:
+              (_) => OrderBloc(
+                orderRemoteDatasource: OrderRemoteDatasource(
+                  FirebaseFirestore.instance,
                 ),
               ),
         ),

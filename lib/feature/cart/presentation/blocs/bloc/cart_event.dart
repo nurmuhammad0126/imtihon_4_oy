@@ -18,3 +18,9 @@ class InitProductEvent extends CartEvent {
 
   const InitProductEvent({required this.userId});
 }
+
+class UpdateCart extends CartEvent{
+  final String userId;
+
+  const UpdateCart({required this.userId});
+}

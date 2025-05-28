@@ -1,8 +1,10 @@
 import 'package:exam_4/core/extension/context_extensions.dart';
 import 'package:exam_4/core/extension/size_extensions.dart';
 import 'package:exam_4/core/extension/widget_extensions.dart';
+import 'package:exam_4/core/routes/app_names.dart';
 import 'package:exam_4/core/widgets/w_rounded_container.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/widgets/w_button.dart';
 
@@ -49,7 +51,9 @@ class CongratulationsScreen extends StatelessWidget {
               color: context.colors.primaryOrange,
               borderRadius: 12,
               padding: EdgeInsets.symmetric(vertical: 20.w),
-              onTap: () {},
+              onTap: () {
+                context.go(AppNames.mainScreen);
+              },
               child: Text(
                 "TRACK ORDER",
                 style: context.styles.s16w800.copyWith(
