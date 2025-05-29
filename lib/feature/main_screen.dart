@@ -1,6 +1,7 @@
 import 'package:exam_4/core/extension/context_extensions.dart';
 import 'package:exam_4/feature/cart/presentation/pages/cart_screen.dart';
 import 'package:exam_4/feature/home/presentation/pages/home_screen.dart';
+import 'package:exam_4/feature/map/presentation/pages/map_screen.dart';
 import 'package:exam_4/feature/order/presentation/pages/order_screen.dart';
 import 'package:exam_4/feature/profile/presentation/page/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class _MainScreenState extends State<MainScreen> {
     CartScreen(),
     OrderScreen(),
     ProfileScreen(),
+    MapScreen()
   ];
 
   void _onItemTapped(int index) {
@@ -47,6 +49,8 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(icon: Icon(Icons.history), label: 'Order'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Map'),
+
         ],
       ),
     );

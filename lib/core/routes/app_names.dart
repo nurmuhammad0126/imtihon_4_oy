@@ -19,5 +19,7 @@ class AppNames {
   static final chat = "/chat";
   static final congratulations = "/congratulations";
   static final accesLocation = "/accesLocation";
+  static final mapScreen = "/map_screen";
+
 
 }
